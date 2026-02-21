@@ -9,22 +9,22 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
         with:
-          node-version: '18'
+          dotnet-version: '8.0.x' # или версията, която използваш
 
       - name: Restore dependencies
-        run: npm install   # няма нужда от lock файл
+        run: dotnet restore Homies.sln
 
-      - name: Build application
-        run: npm run build
+      - name: Build solution
+        run: dotnet build Homies.sln --configuration Release --no-restore
 
       - name: Run tests
-        run: npm test
+        run: dotnet test Homies.sln --configuration Release --no-build --verbosity normal
