@@ -19,10 +19,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
 
       - name: Restore dependencies
-        run: npm ci
+        run: npm install   # няма нужда от lock файл
 
       - name: Build application
         run: npm run build
